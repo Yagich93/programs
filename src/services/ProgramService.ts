@@ -1,9 +1,14 @@
-import { injectable } from "inversify"
+import { inject, injectable } from "inversify"
+
 import { Program } from "../models"
+import { ProgramRepository } from "../repositories"
+import { TYPES } from "../types"
 
 @injectable()
 export class ProgramService {
-    async listPrograms(): Promise<Program> {
-        throw new Error("Method not implemented.")
+    constructor(@inject(TYPES.ProgramRepository) private programRepository: ProgramRepository) {}
+
+    async listPrograms(): Promise<Program[]> {
+        return this.programRepository.listPrograms()
     }
 }

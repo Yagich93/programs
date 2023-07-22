@@ -10,7 +10,7 @@ export class ProgramController implements interfaces.Controller {
     constructor(@inject(TYPES.ProgramService) private programService: ProgramService) {}
 
     @httpGet("/")
-    async listPrograms(): Promise<Program> {
+    async listPrograms(): Promise<Program[]> {
         return this.programService.listPrograms()
     }
 }
