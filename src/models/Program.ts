@@ -1,8 +1,5 @@
-export interface Program {
+import { ProgramData } from "./ProgramData"
+
+export interface Program extends ProgramData {
     id: number
-    title: string
-    topic: string
-    learningFormats: string[]
-    bestseller: boolean
-    startDate: string
 }
