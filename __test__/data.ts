@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { Program, ProgramData } from "../src/models"
+import { LearningFormat, Program, ProgramData } from "../src/models"
 
 export function generatePrograms(): Program[] {
     return faker.helpers.multiple(() => generateProgram(), { count: 3 })
@@ -16,9 +16,12 @@ export function generateProgramData(): ProgramData {
     return {
         title: faker.commerce.productName(),
         topic: faker.commerce.department(),
-        learningFormats: faker.helpers.multiple(() => faker.commerce.productAdjective(), {
-            count: 3
-        }),
+        learningFormats: faker.helpers.multiple(
+            () => faker.helpers.arrayElement(Object.values(LearningFormat)),
+            {
+                count: 3
+            }
+        ),
         bestseller: faker.datatype.boolean(),
         startDate: faker.date.anytime().toISOString()
     }
