@@ -5,9 +5,12 @@ import * as bodyParser from "body-parser"
 
 import { TYPES } from "./types"
 import { errorMiddleware, ValidatorMiddleware } from "./middlewares"
+import "./controllers"
+import { ProgramService } from "./services"
 
 const container = new Container()
 
+container.bind<ProgramService>(TYPES.ProgramService).to(ProgramService).inSingletonScope()
 container
     .bind<ValidatorMiddleware>(TYPES.ValidatorMiddleware)
     .to(ValidatorMiddleware)
