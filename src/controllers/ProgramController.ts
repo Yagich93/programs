@@ -4,6 +4,7 @@ import { controller, httpGet, httpPost, interfaces } from "inversify-express-uti
 import { Program, ProgramData } from "../models"
 import { ProgramService } from "../services/ProgramService"
 import { TYPES } from "../types"
+import { ADD_PROGRAM_VALIDATORS } from "./validators"
 
 @controller("/programs")
 export class ProgramController implements interfaces.Controller {
@@ -14,7 +15,7 @@ export class ProgramController implements interfaces.Controller {
         return this.programService.listPrograms()
     }
 
-    @httpPost("/")
+    @httpPost("/", ...ADD_PROGRAM_VALIDATORS)
     async addProgram(programData: ProgramData): Promise<Program> {
         return this.programService.addProgram(programData)
     }
