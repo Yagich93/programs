@@ -3,7 +3,9 @@ import { Program } from "../models"
 
 @injectable()
 export class ProgramRepository {
+    private programs: Program[] = []
+
     async listPrograms(): Promise<Program[]> {
-        throw new Error("Method not implemented.")
+        return this.programs
     }
 }
