@@ -7,10 +7,12 @@ import { TYPES } from "./types"
 import { errorMiddleware, ValidatorMiddleware } from "./middlewares"
 import "./controllers"
 import { ProgramService } from "./services"
+import { ProgramRepository } from "./repositories"
 
 const container = new Container()
 
 container.bind<ProgramService>(TYPES.ProgramService).to(ProgramService).inSingletonScope()
+container.bind<ProgramRepository>(TYPES.ProgramRepository).to(ProgramRepository).inSingletonScope()
 container
     .bind<ValidatorMiddleware>(TYPES.ValidatorMiddleware)
     .to(ValidatorMiddleware)
