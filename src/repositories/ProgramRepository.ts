@@ -9,7 +9,10 @@ export class ProgramRepository {
         return this.programs
     }
 
-    async addProgram(_programData: ProgramData): Promise<Program> {
-        throw new Error("Not implemented")
+    async addProgram(programData: ProgramData): Promise<Program> {
+        const id = 0
+        const program = { ...programData, id }
+        this.programs.push(program)
+        return program
     }
 }
