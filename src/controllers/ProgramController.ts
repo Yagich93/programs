@@ -4,6 +4,7 @@ import {
     httpDelete,
     httpGet,
     httpPost,
+    httpPut,
     interfaces,
     requestBody,
     requestParam
@@ -29,7 +30,12 @@ export class ProgramController implements interfaces.Controller {
     }
 
     @httpDelete("/:id", ...DELETE_PROGRAM_VALIDATORS)
-    deleteProgram(@requestParam("id") id: number): Promise<void> {
+    async deleteProgram(@requestParam("id") id: number): Promise<void> {
         return this.programService.deleteProgram(id)
+    }
+
+    @httpPut("/:id")
+    async updateProgram(id: number, programData: ProgramData): Promise<Program> {
+        return this.programService.updateProgram(id, programData)
     }
 }
