@@ -17,7 +17,8 @@ export class ProgramRepository {
         return program
     }
 
-    async deleteProgram(_id: number): Promise<void> {
-        throw new Error("Not implemented")
+    async deleteProgram(id: number): Promise<void> {
+        const programIndex = this.programs.findIndex((program) => program.id === id)
+        this.programs.splice(programIndex)
     }
 }

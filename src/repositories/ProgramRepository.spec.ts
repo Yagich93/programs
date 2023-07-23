@@ -2,7 +2,7 @@ import "reflect-metadata"
 import { faker } from "@faker-js/faker"
 
 import { ProgramRepository } from "./ProgramRepository"
-import { generateProgramData, generatePrograms } from "../../__test__/data"
+import { generateProgram, generateProgramData, generatePrograms } from "../../__test__/data"
 import { Program, ProgramData } from "../models"
 
 describe("ProgramRepository", () => {
@@ -65,6 +65,29 @@ describe("ProgramRepository", () => {
             await programRepository.addProgram(programData)
 
             expect(programRepository["nextId"]).toEqual(nextId + 1)
+        })
+    })
+
+    describe("deleteProgram", () => {
+        let id: number
+
+        beforeEach(() => {
+            id = faker.number.int(100)
+            const program = { ...generateProgram(), id }
+
+            programRepository["programs"] = [program]
+        })
+
+        it("should delete program with given id", async () => {
+            await programRepository.deleteProgram(id)
+
+            expect(programRepository["programs"]).not.toContain(expect.objectContaining({ id }))
+        })
+
+        it("should return nothing", async () => {
+            const result = await programRepository.deleteProgram(id)
+
+            expect(result).toBeUndefined()
         })
     })
 })
