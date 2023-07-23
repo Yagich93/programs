@@ -105,5 +105,13 @@ describe("ProgramRepository", () => {
                 expect.arrayContaining([...programsBefore, ...programsAfter])
             )
         })
+
+        it("should throw if program not found", async () => {
+            const nonExistentId = 100500
+
+            await expect(programRepository.deleteProgram(nonExistentId)).rejects.toThrow(
+                expect.objectContaining({ status: 404, message: "Program Not Found" })
+            )
+        })
     })
 })

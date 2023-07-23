@@ -1,4 +1,6 @@
 import { injectable } from "inversify"
+import { NotFound } from "http-errors"
+
 import { Program, ProgramData } from "../models"
 
 @injectable()
@@ -19,6 +21,11 @@ export class ProgramRepository {
 
     async deleteProgram(id: number): Promise<void> {
         const programIndex = this.programs.findIndex((program) => program.id === id)
+
+        if (programIndex < 0) {
+            throw new NotFound("Program Not Found")
+        }
+
         this.programs.splice(programIndex, 1)
     }
 }
