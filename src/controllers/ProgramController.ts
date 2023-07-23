@@ -39,7 +39,10 @@ export class ProgramController implements interfaces.Controller {
     }
 
     @httpPut("/:id", ...UPDATE_PROGRAM_VALIDATORS)
-    async updateProgram(id: number, programData: ProgramData): Promise<Program> {
+    async updateProgram(
+        @requestParam("id") id: number,
+        @requestBody() programData: ProgramData
+    ): Promise<Program> {
         return this.programService.updateProgram(id, programData)
     }
 }
