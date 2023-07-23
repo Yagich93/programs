@@ -13,7 +13,11 @@ import {
 import { Program, ProgramData } from "../models"
 import { ProgramService } from "../services/ProgramService"
 import { TYPES } from "../types"
-import { ADD_PROGRAM_VALIDATORS, DELETE_PROGRAM_VALIDATORS } from "./validators"
+import {
+    ADD_PROGRAM_VALIDATORS,
+    DELETE_PROGRAM_VALIDATORS,
+    UPDATE_PROGRAM_VALIDATORS
+} from "./validators"
 
 @controller("/programs")
 export class ProgramController implements interfaces.Controller {
@@ -34,7 +38,7 @@ export class ProgramController implements interfaces.Controller {
         return this.programService.deleteProgram(id)
     }
 
-    @httpPut("/:id")
+    @httpPut("/:id", ...UPDATE_PROGRAM_VALIDATORS)
     async updateProgram(id: number, programData: ProgramData): Promise<Program> {
         return this.programService.updateProgram(id, programData)
     }

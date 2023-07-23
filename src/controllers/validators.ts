@@ -3,7 +3,7 @@ import { body, checkExact, param } from "express-validator"
 import { TYPES } from "../types"
 import { LearningFormat } from "../models"
 
-export const ADD_PROGRAM_VALIDATORS = [
+const PROGRAM_BODY_VALIDATORS = [
     body("title")
         .isString()
         .withMessage("Should be a string")
@@ -31,12 +31,20 @@ export const ADD_PROGRAM_VALIDATORS = [
         .isISO8601({ strict: true, strictSeparator: true })
         .withMessage("Should be ISO8601 Date"),
 
-    checkExact(),
-    TYPES.ValidatorMiddleware
+    checkExact()
 ]
 
-export const DELETE_PROGRAM_VALIDATORS = [
-    param("id").isInt({ min: 0 }).withMessage("Should be non-negative integer").toInt(),
+const ID_PARAM_VALIDATOR = param("id")
+    .isInt({ min: 0 })
+    .withMessage("Should be non-negative integer")
+    .toInt()
 
+export const ADD_PROGRAM_VALIDATORS = [...PROGRAM_BODY_VALIDATORS, TYPES.ValidatorMiddleware]
+
+export const DELETE_PROGRAM_VALIDATORS = [ID_PARAM_VALIDATOR, TYPES.ValidatorMiddleware]
+
+export const UPDATE_PROGRAM_VALIDATORS = [
+    ID_PARAM_VALIDATOR,
+    ...PROGRAM_BODY_VALIDATORS,
     TYPES.ValidatorMiddleware
 ]
