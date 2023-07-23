@@ -72,7 +72,7 @@ describe("ProgramRepository", () => {
         let id: number
 
         beforeEach(() => {
-            id = faker.number.int(100)
+            id = faker.number.int({ min: 101, max: 200 })
             const program = { ...generateProgram(), id }
 
             programRepository["programs"] = [program]
@@ -88,6 +88,22 @@ describe("ProgramRepository", () => {
             const result = await programRepository.deleteProgram(id)
 
             expect(result).toBeUndefined()
+        })
+
+        it("should not remove other programs", async () => {
+            const programsBefore = generatePrograms()
+            const programsAfter = generatePrograms()
+            programRepository["programs"] = [
+                ...programsBefore,
+                ...programRepository["programs"],
+                ...programsAfter
+            ]
+
+            await programRepository.deleteProgram(id)
+
+            expect(programRepository["programs"]).toEqual(
+                expect.arrayContaining([...programsBefore, ...programsAfter])
+            )
         })
     })
 })

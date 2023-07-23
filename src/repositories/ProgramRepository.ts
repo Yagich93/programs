@@ -19,6 +19,6 @@ export class ProgramRepository {
 
     async deleteProgram(id: number): Promise<void> {
         const programIndex = this.programs.findIndex((program) => program.id === id)
-        this.programs.splice(programIndex)
+        this.programs.splice(programIndex, 1)
     }
 }
