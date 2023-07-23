@@ -1,5 +1,13 @@
 import { inject } from "inversify"
-import { controller, httpGet, httpPost, interfaces, requestBody } from "inversify-express-utils"
+import {
+    controller,
+    httpDelete,
+    httpGet,
+    httpPost,
+    interfaces,
+    requestBody,
+    requestParam
+} from "inversify-express-utils"
 
 import { Program, ProgramData } from "../models"
 import { ProgramService } from "../services/ProgramService"
@@ -18,5 +26,10 @@ export class ProgramController implements interfaces.Controller {
     @httpPost("/", ...ADD_PROGRAM_VALIDATORS)
     async addProgram(@requestBody() programData: ProgramData): Promise<Program> {
         return this.programService.addProgram(programData)
+    }
+
+    @httpDelete("/:id")
+    deleteProgram(@requestParam("id") id: number): Promise<void> {
+        return this.programService.deleteProgram(id)
     }
 }
