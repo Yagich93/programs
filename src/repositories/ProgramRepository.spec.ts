@@ -1,4 +1,5 @@
 import "reflect-metadata"
+import { faker } from "@faker-js/faker"
 
 import { ProgramRepository } from "./ProgramRepository"
 import { generateProgramData, generatePrograms } from "../../__test__/data"
@@ -25,9 +26,11 @@ describe("ProgramRepository", () => {
 
     describe("addProgram", () => {
         let programData: ProgramData
+        let nextId: number
 
         beforeEach(() => {
             programData = generateProgramData()
+            nextId = faker.number.int(100)
         })
 
         afterEach(() => {
@@ -46,6 +49,22 @@ describe("ProgramRepository", () => {
             const program = await programRepository.addProgram(programData)
 
             expect(program).toEqual(expect.objectContaining(programData))
+        })
+
+        it("should assign next available id", async () => {
+            programRepository["nextId"] = nextId
+
+            const program = await programRepository.addProgram(programData)
+
+            expect(program.id).toEqual(nextId)
+        })
+
+        it("should increment next available id", async () => {
+            programRepository["nextId"] = nextId
+
+            await programRepository.addProgram(programData)
+
+            expect(programRepository["nextId"]).toEqual(nextId + 1)
         })
     })
 })
