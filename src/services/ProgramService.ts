@@ -12,7 +12,7 @@ export class ProgramService {
         return this.programRepository.listPrograms()
     }
 
-    async addProgram(_programData: ProgramData): Promise<Program> {
-        throw new Error("Method not implemented.")
+    async addProgram(programData: ProgramData): Promise<Program> {
+        return this.programRepository.addProgram(programData)
     }
 }

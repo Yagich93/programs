@@ -1,5 +1,5 @@
 import { injectable } from "inversify"
-import { Program } from "../models"
+import { Program, ProgramData } from "../models"
 
 @injectable()
 export class ProgramRepository {
@@ -7,5 +7,9 @@ export class ProgramRepository {
 
     async listPrograms(): Promise<Program[]> {
         return this.programs
+    }
+
+    async addProgram(_programData: ProgramData): Promise<Program> {
+        throw new Error("Not implemented")
     }
 }
