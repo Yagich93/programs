@@ -1,4 +1,4 @@
-import { body, checkExact } from "express-validator"
+import { body, checkExact, param } from "express-validator"
 
 import { TYPES } from "../types"
 import { LearningFormat } from "../models"
@@ -32,5 +32,11 @@ export const ADD_PROGRAM_VALIDATORS = [
         .withMessage("Should be ISO8601 Date"),
 
     checkExact(),
+    TYPES.ValidatorMiddleware
+]
+
+export const DELETE_PROGRAM_VALIDATORS = [
+    param("id").isInt({ min: 0 }).withMessage("Should be non-negative integer").toInt(),
+
     TYPES.ValidatorMiddleware
 ]

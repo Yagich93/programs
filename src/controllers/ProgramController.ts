@@ -12,7 +12,7 @@ import {
 import { Program, ProgramData } from "../models"
 import { ProgramService } from "../services/ProgramService"
 import { TYPES } from "../types"
-import { ADD_PROGRAM_VALIDATORS } from "./validators"
+import { ADD_PROGRAM_VALIDATORS, DELETE_PROGRAM_VALIDATORS } from "./validators"
 
 @controller("/programs")
 export class ProgramController implements interfaces.Controller {
@@ -28,7 +28,7 @@ export class ProgramController implements interfaces.Controller {
         return this.programService.addProgram(programData)
     }
 
-    @httpDelete("/:id")
+    @httpDelete("/:id", ...DELETE_PROGRAM_VALIDATORS)
     deleteProgram(@requestParam("id") id: number): Promise<void> {
         return this.programService.deleteProgram(id)
     }
