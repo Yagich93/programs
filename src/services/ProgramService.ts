@@ -20,7 +20,7 @@ export class ProgramService {
         return this.programRepository.deleteProgram(id)
     }
 
-    async updateProgram(_id: number, _programData: ProgramData): Promise<Program> {
-        throw new Error("Method not implemented.")
+    async updateProgram(id: number, programData: ProgramData): Promise<Program> {
+        return this.programRepository.updateProgram(id, programData)
     }
 }

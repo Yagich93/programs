@@ -72,4 +72,30 @@ describe("ProgramService", () => {
             expect(result).toBeUndefined()
         })
     })
+
+    describe("updateProgram", () => {
+        let id: number
+        let programData: ProgramData
+        let expectedProgram: Program
+
+        beforeEach(() => {
+            id = faker.number.int(100)
+            programData = generateProgramData()
+            expectedProgram = { ...generateProgram(programData), id }
+
+            programRepository.updateProgram = jest.fn().mockResolvedValue(expectedProgram)
+        })
+
+        it("should pass program id and data to service", async () => {
+            await programService.updateProgram(id, programData)
+
+            expect(programRepository.updateProgram).toHaveBeenCalledWith(id, programData)
+        })
+
+        it("should return updated program", async () => {
+            const program = await programService.updateProgram(id, programData)
+
+            expect(program).toEqual(expectedProgram)
+        })
+    })
 })

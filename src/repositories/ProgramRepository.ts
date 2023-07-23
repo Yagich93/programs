@@ -28,4 +28,8 @@ export class ProgramRepository {
 
         this.programs.splice(programIndex, 1)
     }
+
+    async updateProgram(_id: number, _programData: ProgramData): Promise<Program> {
+        throw new Error("Method not implemented.")
+    }
 }
