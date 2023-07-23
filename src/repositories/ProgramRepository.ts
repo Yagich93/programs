@@ -16,4 +16,8 @@ export class ProgramRepository {
         this.programs.push(program)
         return program
     }
+
+    async deleteProgram(_id: number): Promise<void> {
+        throw new Error("Not implemented")
+    }
 }

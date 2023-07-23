@@ -16,7 +16,7 @@ export class ProgramService {
         return this.programRepository.addProgram(programData)
     }
 
-    async deleteProgram(_id: number): Promise<void> {
-        throw new Error("Not implemented")
+    async deleteProgram(id: number): Promise<void> {
+        return this.programRepository.deleteProgram(id)
     }
 }

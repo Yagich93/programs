@@ -1,5 +1,6 @@
 import "reflect-metadata"
 import { Mock } from "ts-mockery"
+import { faker } from "@faker-js/faker"
 
 import { Program, ProgramData } from "../models"
 import { ProgramService } from "./ProgramService"
@@ -47,6 +48,28 @@ describe("ProgramService", () => {
             const program = await programService.addProgram(programData)
 
             expect(program).toEqual(expectedProgram)
+        })
+    })
+
+    describe("deleteProgram", () => {
+        let id: number
+
+        beforeEach(() => {
+            id = faker.number.int(100)
+
+            programRepository.deleteProgram = jest.fn()
+        })
+
+        it("should pass program id to service", async () => {
+            await programService.deleteProgram(id)
+
+            expect(programRepository.deleteProgram).toHaveBeenCalledWith(id)
+        })
+
+        it("should return nothing", async () => {
+            const result = await programService.deleteProgram(id)
+
+            expect(result).toBeUndefined()
         })
     })
 })
