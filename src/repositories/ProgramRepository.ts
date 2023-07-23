@@ -20,16 +20,24 @@ export class ProgramRepository {
     }
 
     async deleteProgram(id: number): Promise<void> {
+        const programIndex = this.findProgramIndex(id)
+
+        this.programs.splice(programIndex, 1)
+    }
+
+    async updateProgram(id: number, programData: ProgramData): Promise<Program> {
+        const programIndex = this.findProgramIndex(id)
+
+        return Object.assign(this.programs[programIndex], programData)
+    }
+
+    private findProgramIndex(id: number): number {
         const programIndex = this.programs.findIndex((program) => program.id === id)
 
         if (programIndex < 0) {
             throw new NotFound("Program Not Found")
         }
 
-        this.programs.splice(programIndex, 1)
-    }
-
-    async updateProgram(_id: number, _programData: ProgramData): Promise<Program> {
-        throw new Error("Method not implemented.")
+        return programIndex
     }
 }

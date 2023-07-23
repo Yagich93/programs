@@ -114,4 +114,33 @@ describe("ProgramRepository", () => {
             )
         })
     })
+
+    describe("updateProgram", () => {
+        let id: number
+        let programData: ProgramData
+        let expectedProgram: Program
+
+        beforeEach(() => {
+            id = faker.number.int({ min: 101, max: 200 })
+            programData = generateProgramData()
+            expectedProgram = { ...generateProgram(programData), id }
+
+            const priorProgram = { ...generateProgram(), id }
+            programRepository["programs"] = [priorProgram]
+        })
+
+        it("should update corresponding program", async () => {
+            await programRepository.updateProgram(id, programData)
+
+            expect(programRepository["programs"]).toContainEqual(
+                expect.objectContaining({ ...programData, id })
+            )
+        })
+
+        it("should return updated program", async () => {
+            const program = await programRepository.updateProgram(id, programData)
+
+            expect(program).toEqual(expectedProgram)
+        })
+    })
 })
