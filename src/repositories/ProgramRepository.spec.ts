@@ -152,5 +152,21 @@ describe("ProgramRepository", () => {
                 expect.objectContaining({ status: 404, message: "Program Not Found" })
             )
         })
+
+        it("should not change other programs", async () => {
+            const programsBefore = generatePrograms()
+            const programsAfter = generatePrograms()
+            programRepository["programs"] = [
+                ...programsBefore,
+                ...programRepository["programs"],
+                ...programsAfter
+            ]
+
+            await programRepository.updateProgram(id, programData)
+
+            expect(programRepository["programs"]).toEqual(
+                expect.arrayContaining([...programsBefore, ...programsAfter])
+            )
+        })
     })
 })
