@@ -125,7 +125,7 @@ This will host Swagger UI on `localhost:8080`, which may be viewed in browser.
 
 ## Limitations
 
-The solution also has some room for functional and technical improvements.
+The solution has some room for functional and technical improvements.
 
 -   There is no port configuration
     -   It could be done by defining some env variable like `PORT` and reading from it on start
