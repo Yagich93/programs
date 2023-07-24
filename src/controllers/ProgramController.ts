@@ -10,7 +10,7 @@ import {
     requestParam,
     response
 } from "inversify-express-utils"
-import { Body, Delete, Get, Inject, Post, Put, Response, Route, SuccessResponse } from "tsoa"
+import { Body, Delete, Get, Inject, Post, Put, Response, Route, SuccessResponse, Tags } from "tsoa"
 import * as express from "express"
 
 import { Program, ProgramData } from "../models"
@@ -23,6 +23,7 @@ import {
 } from "./validators"
 import { ErrorResponse, ValidationErrorResponse } from "../middlewares"
 
+@Tags("Programs")
 @Route("/programs")
 @controller("/programs")
 export class ProgramController implements interfaces.Controller {
