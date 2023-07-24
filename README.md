@@ -16,6 +16,8 @@ This service requires only Node.js installed.
 
 It has been written with Node.js 18.16. It might work on older versions, however, this is not guaranteed.
 
+Viewing of Swagger Doc locally requires Docker or Podman installed.
+
 ### Installation
 
 To install dependencies, simply run:
@@ -97,6 +99,32 @@ The RESTful API exposed by the service allows the following operations:
 
 Input and output data has JSON format.
 
+### Swagger API Doc
+
+API documentation may be viewed locally by generating a Swagger file and then viewing it in Swagger UI.
+
+To generate Swagger, use the following command:
+
+```
+npm run generate:swagger
+```
+
+This will generate `swagger.json` file based on models and annotations using [tsoa](https://tsoa-community.github.io/docs/).
+
+To view the generated Swagger in Swagger UI, the following command may be used:
+
+```
+docker run -p 80:8080 -e SWAGGER_JSON=/doc/swagger.json -e DEFAULT_MODEL_EXPAND_DEPTH=3 -e DEFAULT_MODEL_RENDERING=model -v ./:/doc swaggerapi/swagger-ui
+```
+
+or
+
+```
+podman run -p 80:8080 -e SWAGGER_JSON=/doc/swagger.json -e DEFAULT_MODEL_EXPAND_DEPTH=3 -e DEFAULT_MODEL_RENDERING=model -v ./:/doc swaggerapi/swagger-ui
+```
+
+This will host Swagger UI on `localhost:8080`, which may be viewed in browser.
+
 ## Limitations
 
 The solution also has some room for functional and technical improvements.
@@ -104,8 +132,6 @@ The solution also has some room for functional and technical improvements.
 -   There is no port configuration
     -   It could be done by defining some env variable like `PORT` and reading from it on start
     -   A tool such as [dotenv](https://github.com/motdotla/dotenv) may be used to customize env variables locally
--   There is no Swagger documentation
-    -   A tool like [tsoa](https://tsoa-community.github.io/docs/) may be used to annotate Controllers and generate Swagger from those annotations
 -   The repository implementation stores data in memory, without persistance
     -   Alternative repository implementations may be added to use DBs like MongoDB, MySQL/PostgreSQL or at least save to a file
     -   In case of DB usage, tools like [TypeORM](https://typeorm.io) may be utilized to model data storage
@@ -144,5 +170,6 @@ Tooling used in the solution include:
 -   [Jest](https://jestjs.io) and [ts-jest](https://github.com/kulshekhar/ts-jest) for unit-testing
 -   [ts-mockery](https://github.com/ike18t/ts-mockery) for mocking classes in tests
 -   [Faker](https://fakerjs.dev) for generating random test data
+-   [tsoa](https://tsoa-community.github.io/docs/) for Swagger generation
 -   [prettier](https://prettier.io) for code formatting
 -   [eslint](https://eslint.org) and [typescript-eslint](https://typescript-eslint.io) for code linting
