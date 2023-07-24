@@ -1,7 +1,5 @@
 # Programs
 
----
-
 ## Intro
 
 Programs is a small RESTful service using Node.js and TypeScript.
