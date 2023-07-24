@@ -42,7 +42,7 @@ export class ProgramController implements interfaces.Controller {
      * @summary Add program
      */
     @Post("/")
-    @SuccessResponse("201", "Created")
+    @SuccessResponse(201, "Created")
     @Response<ValidationErrorResponse>(422, "Validation Failed")
     @httpPost("/", ...ADD_PROGRAM_VALIDATORS)
     async addProgram(
@@ -55,6 +55,9 @@ export class ProgramController implements interfaces.Controller {
 
     /**
      * @summary Delete program
+     *
+     * @isInt id
+     * @minimum id 0
      */
     @Delete("/{id}")
     @Response<ErrorResponse>(404, "Program Not Found")
@@ -65,10 +68,13 @@ export class ProgramController implements interfaces.Controller {
 
     /**
      * @summary Update program
+     *
+     * @isInt id
+     * @minimum id 0
      */
     @Put("/{id}")
-    @Response<ValidationErrorResponse>(422, "Validation Failed")
     @Response<ErrorResponse>(404, "Program Not Found")
+    @Response<ValidationErrorResponse>(422, "Validation Failed")
     @httpPut("/:id", ...UPDATE_PROGRAM_VALIDATORS)
     async updateProgram(
         @requestParam("id") id: number,

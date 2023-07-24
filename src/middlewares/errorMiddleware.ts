@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import { isHttpError } from "http-errors"
 
 export interface ErrorResponse {
+    /** @isInt */
     status: number
     message: string
 }
