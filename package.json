@@ -10,7 +10,8 @@
     "clean": "rimraf dist",
     "clean:all": "rimraf dist node_modules",
     "prebuild": "npm run clean",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "generate:swagger": "tsoa spec"
   },
   "author": "Iakov Lushin <yagich@bk.ru>",
   "license": "UNLICENSED",
@@ -20,7 +21,8 @@
     "http-errors": "^2.0.0",
     "inversify": "^6.0.1",
     "inversify-express-utils": "^6.4.3",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "tsoa": "^5.1.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",

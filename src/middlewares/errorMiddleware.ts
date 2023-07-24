@@ -1,6 +1,11 @@
 import { NextFunction, Request, Response } from "express"
 import { isHttpError } from "http-errors"
 
+export interface ErrorResponse {
+    status: number
+    message: string
+}
+
 export function errorMiddleware(
     err: unknown,
     _req: Request,
@@ -13,5 +18,7 @@ export function errorMiddleware(
     if (!isHttpError(err)) {
         console.log(err)
     }
-    res.status(status).json({ status, message })
+
+    const responseBody: ErrorResponse = { status, message }
+    res.status(status).json(responseBody)
 }
