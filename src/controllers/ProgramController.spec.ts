@@ -31,12 +31,12 @@ describe("ProgramController", () => {
     describe("addProgram", () => {
         let programData: ProgramData
         let expectedProgram: Program
-        let response: express.Response
+        let response: Pick<express.Response, "status">
 
         beforeEach(() => {
             programData = generateProgramData()
             expectedProgram = generateProgram(programData)
-            response = { status: jest.fn() } as express.Response
+            response = { status: jest.fn() }
 
             programService.addProgram = jest.fn().mockResolvedValue(expectedProgram)
         })

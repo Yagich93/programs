@@ -47,7 +47,7 @@ export class ProgramController implements interfaces.Controller {
     @httpPost("/", ...ADD_PROGRAM_VALIDATORS)
     async addProgram(
         @Body() @requestBody() programData: ProgramData,
-        @Inject() @response() res: express.Response
+        @Inject() @response() res: Pick<express.Response, "status">
     ): Promise<Program> {
         res.status(201)
         return this.programService.addProgram(programData)
