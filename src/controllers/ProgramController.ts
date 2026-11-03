@@ -10,7 +10,7 @@ import {
     requestParam,
     response
 } from "inversify-express-utils"
-import { Body, Delete, Get, Inject, Post, Put, Response, Route, SuccessResponse, Tags } from "tsoa"
+import { Body, Delete, Get, Inject, Post, Put, Response, Route, SuccessResponse, Tags } from "@tsoa/runtime"
 import * as express from "express"
 
 import { Program, ProgramData } from "../models"
