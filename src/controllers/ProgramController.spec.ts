@@ -1,6 +1,7 @@
 import "reflect-metadata"
 import { Mock } from "ts-mockery"
 import { faker } from "@faker-js/faker"
+import * as express from "express"
 
 import { ProgramController } from "./ProgramController"
 import { Program, ProgramData } from "../models"
@@ -30,24 +31,27 @@ describe("ProgramController", () => {
     describe("addProgram", () => {
         let programData: ProgramData
         let expectedProgram: Program
+        let response: express.Response
 
         beforeEach(() => {
             programData = generateProgramData()
             expectedProgram = generateProgram(programData)
+            response = { status: jest.fn() } as express.Response
 
             programService.addProgram = jest.fn().mockResolvedValue(expectedProgram)
         })
 
         it("should pass program data to service", async () => {
-            await programController.addProgram(programData)
+            await programController.addProgram(programData, response)
 
             expect(programService.addProgram).toHaveBeenCalledWith(programData)
         })
 
         it("should return added program", async () => {
-            const program = await programController.addProgram(programData)
+            const program = await programController.addProgram(programData, response)
 
             expect(program).toEqual(expectedProgram)
+            expect(response.status).toHaveBeenCalledWith(201)
         })
     })
 
